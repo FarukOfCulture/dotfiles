@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/bin/spotify &
+xdotool search --sync --onlyvisible --class Spotify && i3-msg [class='Spotify'] move workspace "music"

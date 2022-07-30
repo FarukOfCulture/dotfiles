@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+kitty --class dwn sh -c 'i3-msg "[class=dwn] move scratchpad" &>/dev/null; aria2c -d ~/Downloads --summary-interval 0 $(xclip -sel c -o)' && dunstify -u c "Download Ended"

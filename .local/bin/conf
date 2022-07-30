@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+files="i3\npolybar\nnvim\ndunst\nfish\nalacritty\ndmenu\ntmux\nkitty\nfontconfig\nprompt\npicom\nlocal bin\ni3 scripts"
+
+if test -n "$1"; then
+	conf=$1
+
+elif test "$TERM" = 'dumb'; then
+	conf=$(echo -e "$files" | dmenu -l 10)
+	nvim (){
+		kitty -e nvim "$1"
+
+	}
+
+else conf=$(echo -e "$files" | fzf -i)
+fi
+
+case $conf in
+	i3)					nvim ~/.config/i3/config	;;
+	polybar)		nvim ~/.config/polybar/config.ini	;;
+	nvim)				nvim ~/.config/nvim/init.lua ;;
+	dunst)			nvim ~/.config/dunst/dunstrc	;;
+	fish)				nvim ~/.config/fish/config.fish	;;
+	alacritty)	nvim ~/.config/alacritty/alacritty.yml	;;
+	dmenu)			nvim ~/.config/dmenu/quickMenu.sh	;;
+	tmux)				nvim ~/.tmux.conf ;;
+	kitty)			nvim ~/.config/kitty/kitty.conf ;;
+	fontconfig)	nvim ~/.config/fontconfig/fonts.conf ;;
+	picom)			nvim ~/.config/picom.conf ;;
+	prompt)			nvim ~/.config/fish/functions/fish_prompt.fish ;;
+	st)					nvim ~/.local/share/st/config.h; doas make -C ~/.local/share/st/ clean install ;;
+	'i3 scripts')	nvim ~/.config/i3/scripts/ ;;
+	'local bin')	nvim ~/.local/bin/ ;;
+esac

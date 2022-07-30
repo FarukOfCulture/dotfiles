@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+kitty --title $1 --class $1 -e $1
+# alacritty --title "$1" --class "$1,$1" -e "$1"
+# st -T "$1" -c "$1" -e "$1"

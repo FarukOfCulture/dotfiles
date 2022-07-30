@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+
+if (process.argv[2] && isNaN(process.argv[2])) {
+  console.log("You can pass port as first argument");
+  return;
+}
+
+const http = require("http");
+const fs = require("fs");
+const port = process.argv[2] || 3000;
+
+const serveFile = (file, res) => {
+  if (fs.existsSync(file)) {
+    fs.createReadStream(file).pipe(res);
+  } else {
+    res.writeHead(404).end();
+  }
+};
+
+http
+  .createServer((req, res) => {
+    switch (req.url) {
+      case "/test":
+        fs.watch(".", () => {
+          res.end();
+        });
+        return;
+
+      case "/":
+        serveFile("index.html", res);
+        return;
+
+      case "/live-server.js":
+        res.end(
+          "(async () => { await fetch('http://localhost:3000/test'); window.location.reload() })()"
+        );
+        return;
+    }
+    serveFile("." + req.url, res);
+  })
+  .listen(port, () => {
+    console.log("Server running on http://localhost:" + port);
+  });

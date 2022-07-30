@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+if test $1 != '/home/faruk/.local/share/bg'; then
+	cp -f $1 ~/.local/share/bg
+	cp $1 ~/wall/
+	betterlockscreen --fx dimblur -u ~/.local/share/bg >/dev/null &
+fi
+feh --bg-fill ~/.local/share/bg
+wait

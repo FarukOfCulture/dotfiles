@@ -1,0 +1,252 @@
+# please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod4
+
+font pango:monospace 8
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+default_border pixel 2
+# focus_follows_mouse no
+mouse_warping output
+
+gaps inner 8
+gaps outer -2
+gaps top -2
+smart_gaps on
+smart_borders on
+
+floating_modifier $mod
+
+set $Up k
+set $Down j
+set $Left h
+set $Right l
+
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l --nofork
+exec --no-startup-id setbg ~/.local/share/bg
+exec --no-startup-id nm-applet
+exec --no-startup-id picom 
+#exec --no-startup-id picom --corner-radius 10 --blur-background --blur-kern "15,15,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1," -i .5
+exec --no-startup-id kdeconnect-indicator
+exec_always --no-startup-id setxkbmap -layout tr,us && sleep 1 && setxkbmap -option 'grp:win_space_toggle' && xmodmap -e "keycode 63 = KP_Add"
+exec --no-startup-id dunst
+exec --no-startup-id numlockx on
+exec --no-startup-id xdotool search --sync --onlyvisible --title CoreCtrl && i3-msg [title='CoreCtrl'] kill
+exec --no-startup-id xdotool search --sync --onlyvisible --class Spotify && i3-msg [class='Spotify'] move workspace "music"
+exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+exec --no-startup-id spotify
+exec --no-startup-id doas corectrl
+exec --no-startup-id doas swapon /dev/sda3
+exec_always --no-startup-id pkill -9 polybar; polybar main
+exec --no-startup-id msm_notifier
+exec --no-startup-id mkdir /tmp/tmp /tmp/tmp/.git
+exec --no-startup-id xset r rate 210 40
+exec --no-startup-id test -f ~/TODO && dunstify -u critical 'TODO' "$(awk '{print "\\- " $0}' ~/TODO)"
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id sh ~/.config/i3/scripts/volume.sh '+5%'
+bindsym XF86AudioLowerVolume exec --no-startup-id sh ~/.config/i3/scripts/volume.sh '-5%'
+bindsym XF86AudioMute exec --no-startup-id sh ~/.config/i3/scripts/mute.sh
+
+bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id sh ~/.config/i3/scripts/brightness.sh '+.05'
+bindsym $mod+XF86AudioLowerVolume exec --no-startup-id sh ~/.config/i3/scripts/brightness.sh '-.05'
+
+bindsym XF86AudioPlay exec --no-startup-id sh ~/.config/i3/scripts/autoMusic.sh
+
+#bindsym XF86AudioNext exec --no-startup-id playerctl -p ncspot next
+#bindsym XF86AudioPrev exec --no-startup-id playerctl -p ncspot previous
+
+bindsym XF86AudioNext exec --no-startup-id playerctl -p spotify next
+bindsym XF86AudioPrev exec --no-startup-id playerctl -p spotify previous
+
+bindsym $mod+XF86AudioPlay exec --no-startup-id playerctl -a pause 
+
+bindsym XF86Calculator exec --no-startup-id sh ~/.config/i3/scripts/calculator.sh
+
+bindsym $mod+q kill
+
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
+
+bindsym $mod+$Left focus left; exec --no-startup-id sh ~/.config/i3/scripts/windowChange.sh
+bindsym $mod+$Down focus down; exec --no-startup-id sh ~/.config/i3/scripts/windowChange.sh
+bindsym $mod+$Up focus up; exec --no-startup-id sh ~/.config/i3/scripts/windowChange.sh
+bindsym $mod+$Right focus right; exec --no-startup-id sh ~/.config/i3/scripts/windowChange.sh
+
+bindsym $mod+Shift+$Left move left
+bindsym $mod+Shift+$Down move down
+bindsym $mod+Shift+$Up move up
+bindsym $mod+Shift+$Right move right
+
+bindsym $mod+g split h
+bindsym $mod+v split v
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+Shift+c floating toggle
+bindsym $mod+c focus mode_toggle
+
+bindsym $mod+1 workspace "1"
+bindsym $mod+2 workspace "2"
+bindsym $mod+3 workspace "3"
+bindsym $mod+4 workspace "4"
+bindsym $mod+5 workspace "5"
+bindsym $mod+6 workspace "6"
+bindsym $mod+7 workspace "7"
+bindsym $mod+8 workspace "8"
+bindsym $mod+9 workspace "9"
+
+bindsym $mod+Shift+1 move container to workspace "1"
+bindsym $mod+Shift+2 move container to workspace "2"
+bindsym $mod+Shift+3 move container to workspace "3"
+bindsym $mod+Shift+4 move container to workspace "4"
+bindsym $mod+Shift+5 move container to workspace "5"
+bindsym $mod+Shift+6 move container to workspace "6"
+bindsym $mod+Shift+7 move container to workspace "7"
+bindsym $mod+Shift+8 move container to workspace "8"
+bindsym $mod+Shift+9 move container to workspace "9"
+
+bindsym $mod+Shift+r reload, restart
+
+# bindsym $mod+l exec --no-startup-id betterlockscreen -l
+
+#bindsym XF86HomePage exec --no-startup-id firefox
+#bindsym shift+XF86HomePage exec --no-startup-id firefox --private-window
+bindsym XF86HomePage exec --no-startup-id brave
+bindsym shift+XF86HomePage exec --no-startup-id brave --incognito
+bindsym XF86Tools exec --no-startup-id ! pgrep spotify && spotify 
+bindsym $mod+Return exec --no-startup-id kitty --single-instance
+bindsym $mod+b exec --no-startup-id pcmanfm
+bindsym $mod+n exec --no-startup-id termrun pulsemixer
+bindsym $mod+s --release exec --no-startup-id xcolor | tr -d '\n' | xclip -sel c
+
+bindsym XF86Mail exec --no-startup-id "dmenu_run"
+bindsym shift+XF86Mail exec --no-startup-id "sh ~/.config/dmenu/quickMenu.sh"
+
+bindsym Print --release exec --no-startup-id scrot -oq 100 -fs ~/Pictures/'%m-%d_%H-%M-%S.png' -e 'xclip -sel clip -t image/png $f'
+bindsym shift+Print --release exec --no-startup-id scrot -oq 100 ~/Pictures/'%m-%d_%H-%M-%S.png' -e 'xclip -sel clip -t image/png $f'
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+	bindsym $Left resize shrink width 1 px or 1 ppt
+	bindsym $Down resize shrink height 1px or 1 ppt
+	bindsym $Up resize grow height 1px or 1 ppt
+	bindsym $Right resize grow width 1px or 1 ppt
+
+	bindsym Left resize shrink width 1 px or 1 ppt
+	bindsym Down resize shrink height 1px or 1 ppt
+	bindsym Up resize grow height 1px or 1 ppt
+	bindsym Right resize grow width 1px or 1 ppt
+
+	bindsym Shift+$Left resize shrink width 10 px or 10 ppt
+	bindsym Shift+$Down resize shrink height 10 px or 10 ppt
+	bindsym Shift+$Up resize grow height 10 px or 10 ppt
+	bindsym Shift+$Right resize grow width 10 px or 10 ppt
+
+	bindsym Shift+Left resize shrink width 10 px or 10 ppt
+	bindsym Shift+Down resize shrink height 10 px or 10 ppt
+	bindsym Shift+Up resize grow height 10 px or 10 ppt
+	bindsym Shift+Right resize grow width 10 px or 10 ppt
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+
+bindsym $mod+0 workspace "0", mode "System"
+mode "System" {
+	bindsym l exec --no-startup-id "fish -c 'betterlockscreen -l dimblur --time-format %I:%M:%S -- --ring-color 282c34 --{key, bs}hl-color=abb2bf --{layout, time, date, greeter, verif}-color=D8DEE9 --ring{ver, wrong}-color=abb2bf --{,inside}wrong-color=be5046'", exec --no-startup-id playerctl -a pause, mode "Workspace"
+	bindsym s exec --no-startup-id "fish -c 'betterlockscreen -l dimblur --time-format %I:%M:%S -- --ring-color 282c34 --{key, bs}hl-color=abb2bf --{layout, time, date, greeter, verif}-color=D8DEE9 --ring{ver, wrong}-color=abb2bf --{,inside}wrong-color=be5046'", exec --no-startup-id playerctl -a pause, mode "SWorkspace", exec --no-startup-id systemctl suspend
+	bindsym shift+e exec --no-startup-id i3-msg exit, mode "default"
+	bindsym shift+r exec --no-startup-id systemctl reboot
+	bindsym shift+s exec --no-startup-id systemctl poweroff
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "P"
+mode "P" {
+	bindsym space workspace "0", exec --no-startup-id playerctl -a pause
+
+	bindsym $mod+1 workspace "1"
+	bindsym $mod+2 workspace "2"
+	bindsym $mod+3 workspace "3"
+	bindsym $mod+4 workspace "4"
+	bindsym $mod+5 workspace "5"
+	bindsym $mod+6 workspace "6"
+	bindsym $mod+7 workspace "7"
+	bindsym $mod+8 workspace "8"
+	bindsym $mod+9 workspace "9"
+
+	bindsym $mod+Shift+1 move container to workspace "1"
+	bindsym $mod+Shift+2 move container to workspace "2"
+	bindsym $mod+Shift+3 move container to workspace "3"
+	bindsym $mod+Shift+4 move container to workspace "4"
+	bindsym $mod+Shift+5 move container to workspace "5"
+	bindsym $mod+Shift+6 move container to workspace "6"
+	bindsym $mod+Shift+7 move container to workspace "7"
+	bindsym $mod+Shift+8 move container to workspace "8"
+	bindsym $mod+Shift+9 move container to workspace "9"
+
+	bindsym Escape mode "default"
+}
+
+mode "Workspace" {
+	bindsym 1 workspace "1", mode "default"
+	bindsym 2 workspace "2", mode "default"
+	bindsym 3 workspace "3", mode "default"
+	bindsym 4 workspace "4", mode "default"
+	bindsym 5 workspace "5", mode "default"
+	bindsym 6 workspace "6", mode "default"
+	bindsym 7 workspace "7", mode "default"
+	bindsym 8 workspace "8", mode "default"
+	bindsym 9 workspace "9", mode "default"
+	bindsym u workspace "update", mode "default"
+	bindsym m workspace "music", mode "default"
+
+
+	bindsym XF86AudioMute exec --no-startup-id pkill -f i3lock
+
+	bindsym Escape mode "default"
+}
+
+mode "SWorkspace" {
+	bindsym 1 workspace "1", mode "default"
+	bindsym 2 workspace "2", mode "default"
+	bindsym 3 workspace "3", mode "default"
+	bindsym 4 workspace "4", mode "default"
+	bindsym 5 workspace "5", mode "default"
+	bindsym 6 workspace "6", mode "default"
+	bindsym 7 workspace "7", mode "default"
+	bindsym 8 workspace "8", mode "default"
+	bindsym 9 workspace "9", mode "default"
+	bindsym u workspace "update", mode "default"
+	bindsym m workspace "music", mode "default"
+
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+t move scratchpad
+bindsym $mod+y scratchpad show
+
+assign [class="discord"] "2"
+assign [class="update"] "update"
+assign [class="ncspot"] "music"
+
+#bindsym $mod+m exec --no-startup-id ! pgrep ncspot && termrun ncspot, workspace "music"
+bindsym $mod+m exec --no-startup-id ! pgrep spotify && spotify, workspace "music"
+bindsym $mod+u exec --no-startup-id sh ~/.config/i3/scripts/autoUpdate.sh
+
+# class                   border  backgr. text    indic.   child_border
+  client.focused          #5c6370 #5c6370 #dfdfdf #abb2bf
+  client.focused_inactive #282c34 #282c34 #abb2bf #282c34
+  client.unfocused        #282c34 #282c34 #abb2bf #282c34
+  client.urgent           #be5046 #be5046 #dfdfdf #be5046
+  client.placeholder      #282c34 #282c34 #abb2bf #282c34
+
+  client.background       #2B2C2B
