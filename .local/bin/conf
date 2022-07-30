@@ -6,13 +6,13 @@ if test -n "$1"; then
 	conf=$1
 
 elif test "$TERM" = 'dumb'; then
-	conf=$(echo -e "$files" | dmenu -l 10)
+	conf=$(printf "$files" | dmenu -l 10)
 	nvim (){
 		kitty -e nvim "$1"
 
 	}
 
-else conf=$(echo -e "$files" | fzf -i)
+else conf=$(printf "$files" | fzf -i)
 fi
 
 case $conf in
