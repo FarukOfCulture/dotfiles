@@ -58,7 +58,6 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 vim.opt.shm:append("I")
-
 vim.api.nvim_create_autocmd("filetype", { command = "set formatoptions-=cro" })
 
 pcall(vim.cmd, "colorscheme nord")
