@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+while read file; do
+	case $1 in
+		d)		if [[ $(echo -e 'Yes\nNo' | dmenu -p 'Are You Sure?') = Yes ]]; then rm $file; fi ;;
+		w)		setbg $file ;;
+	esac
+done
