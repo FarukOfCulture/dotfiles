@@ -34,6 +34,7 @@ local options = {
 	termguicolors = true,
 	wildmenu = true,
 	scrolloff = 3,
+	sidescrolloff = 6,
 	wrap = true,
 	hlsearch = false,
 	ignorecase = true,
@@ -58,6 +59,7 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 vim.opt.shm:append("I")
+vim.opt.formatoptions:remove("cro")
 vim.api.nvim_create_autocmd("filetype", { command = "set formatoptions-=cro" })
 
 pcall(vim.cmd, "colorscheme nord")
@@ -71,6 +73,9 @@ vim.g.loaded_perl_provider = 0
 
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
+
+keymap("n", "<s-k>", "", opts)
+keymap("n", "<s-j>", "", opts)
 
 keymap("n", "<right>", "", opts)
 keymap("n", "<left>", "", opts)
@@ -291,7 +296,7 @@ require("lualine").setup({
 				padding = left_pad.padding,
 				color = left_pad.color,
 				cond = function()
-					return #vim.diagnostic.get() ~= 0
+					return #vim.diagnostic.get(0) ~= 0
 				end,
 			},
 			{ "diagnostics", color = { bg = "#4c566a" }, padding = 0 },
@@ -300,7 +305,7 @@ require("lualine").setup({
 				padding = right_pad.padding,
 				color = right_pad.color,
 				cond = function()
-					return #vim.diagnostic.get() ~= 0
+					return #vim.diagnostic.get(0) ~= 0
 				end,
 			},
 		},

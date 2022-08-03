@@ -2,6 +2,6 @@
 
 yay -Sy &>/dev/null
 
-if test "$(yay -Qu | wc -l)" -gt 0; then
-	printf " %s" "$(yay -Qu | wc -l)"
+if test "$(pacman -Qu | wc -l)" -gt 0; then
+	printf " %s" "$(pacman -Qu | wc -l)"
 fi
